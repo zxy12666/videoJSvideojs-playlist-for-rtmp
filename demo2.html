@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>RTMP Sample Player Videojs</title>
+    <!-- 新 Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" href="source/bootstrap.css">
+    <!-- Chang URLs to wherever Video.js files will be hosted -->
+    <link href="http://vjs.zencdn.net/5.4.6/video-js.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="source/videojs.playlist.css">
+    <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+    <script src="http://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
+    <script src="bootstrap.js"></script>
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script src="http://vjs.zencdn.net/5.4.6/video.min.js"></script>
+    <script src="source/videojs.playlist.js"></script>
+</head>
+<body>
+<h1>RTMP Sample Player Videojs</h1>
+<input type="button" data-toggle="modal" value="video start!" href='#myModal'/>
+<div id="myModal" class="modal  hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="width: 1100px;text-align: center;margin-left:-550px" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog" style="width:1100px">
+    <div class="modal-header">
+        <h3 >视频播放</h3>
+    </div>
+    <div class="modal-body" style="max-height: 500px">
+        <div style="display: inline-block;float: left;" >
+            <video id="example_video_1" class="video-js vjs-default-skin" controls preload="none" width="780" height="480" data-setup="{}" autoplay="true" >
+                <source src="rtmp://182.105.82.16/live/1012100057.sdp" type="rtmp/flv"/>
+            </video>
+        </div>
+        <div id="example_video_1-vjs-playlist" class='vjs-playlist' style='width:290px;display: inline-block;height: 480px;float: right'>
+            <ul style="margin-left: 0;overflow-x: auto;overflow-y: auto;height: 100%;width:100%">
+                <li style="width:100%">
+                    <a  class='vjs-track' href='#episode-0' data-index='0' data-src='https://s3.amazonaws.com/onarbor-previews/uploads/works/7aba13a97d304182e277ca2bdd56c9145678af37/v1/OnarborWriteReviewDemo2'><!--//note in the data-src's above that there are no file extensions, e.g., .m4v-->
+                        Writing a review (Onarbor) </a>
+                </li>
+                <li style="width:100%">
+                    <a class='vjs-track' href='#episode-1' data-index='1' data-src='rtmp://182.105.82.16/live/1012100057' type="rtmp/flv"><!--//note in the data-src's above that there are no file extensions, e.g., .m4v-->
+                        Onarbor Demo Video</a>
+                </li>
+            </ul>
+        </div>
+       <!--     <div style="display: inline-block">
+                <video id="example_video_2" class="video-js vjs-default-skin" controls preload="none" width="700" height="480" data-setup="{}" autoplay="true" >
+                    <source src="source/oceans-clip.mp4" />
+                </video>
+            </div>-->
+
+    </div>
+    <div class="modal-footer">
+        <button class="btn" data-dismiss="modal">关闭</button>
+    </div>
+    </div>
+</div>
+
+</body>
+<script>
+    commonplay("example_video_1");
+    function commonplay(videoId){
+        videojs(videoId).ready(function(){
+            var myPlayer = this;
+            // EXAMPLE: Start playing the video.
+            var playlist=myPlayer.playlist({
+                'continuous': false
+            });
+            myPlayer.one('seeked', function(e) {  //播放时间改变执行函数
+                console.log(1);
+                myPlayer.on('mouseup', function(e) {
+                    console.log(myPlayer.currentTime());
+                })
+            });
+            myPlayer.on('ended', function() {
+                console.log(myPlayer.currentTime());
+                alert('video is done!');
+            });
+        });
+    }
+</script>
+</html>
