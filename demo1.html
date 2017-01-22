@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>RTMP Sample Player Videojs</title>
+    <!-- Chang URLs to wherever Video.js files will be hosted -->
+    <link href="//vjs.zencdn.net/5.4.6/video-js.min.css" rel="stylesheet">
+    <script src="//vjs.zencdn.net/5.4.6/video.min.js"></script>
+</head>
+<body>
+<h1>RTMP Sample Player Videojs</h1>
+<video id="example_video_1" class="video-js vjs-default-skin" controls preload="none" width="640" height="480" data-setup="{}" autoplay="true" loop >
+    <source src="rtmp://182.105.82.16/live/839855235.sdp" type="rtmp/flv"/>
+</video>
+
+
+</body>
+<script>
+    videojs("example_video_1").ready(function(){
+        var myPlayer = this;
+        // EXAMPLE: Start playing the video.
+        myPlayer.play();
+    });
+</script>
+</html>
